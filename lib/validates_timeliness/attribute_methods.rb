@@ -46,7 +46,7 @@ module ValidatesTimeliness
             @timeliness_cache ||= {}
             @timeliness_cache["#{attr_name}"] = original_value
             #{ "if value.is_a?(String)\n#{timeliness_type_cast_code(attr_name, 'value')}\nend" if ValidatesTimeliness.use_plugin_parser }
-            
+
             super(value)
           end
         EOV
@@ -56,7 +56,10 @@ module ValidatesTimeliness
       def define_timeliness_before_type_cast_method(attr_name)
         method_body, line = <<-EOV, __LINE__ + 1
           def #{attr_name}_before_type_cast
-            _timeliness_raw_value_for('#{attr_name}') || @attributes['#{attr_name}']
+            _timeliness_raw_value_for('#{attr_name}') || begin
+              a = @attributes['#{attr_name}']
+              a.respond_to?(:value_before_type_cast) ? a.value_before_type_cast : a
+            end
           end
         EOV
         generated_timeliness_methods.module_eval(method_body, __FILE__, line)
