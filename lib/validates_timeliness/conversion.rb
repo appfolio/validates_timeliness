@@ -60,7 +60,7 @@ module ValidatesTimeliness
       if ValidatesTimeliness.use_plugin_parser
         Timeliness::Parser.parse(value, @type, :zone => (:current if @timezone_aware), :format => options[:format], :strict => false)
       else
-        @timezone_aware ? Time.zone.parse(value) : value.to_time(ValidatesTimeliness.default_timezone)
+        @timezone_aware ? Time.zone.parse(value, Time.zone.now) : value.to_time(ValidatesTimeliness.default_timezone)
       end
     rescue ArgumentError, TypeError
       nil
