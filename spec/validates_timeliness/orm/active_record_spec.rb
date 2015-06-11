@@ -163,7 +163,6 @@ describe ValidatesTimeliness, 'ActiveRecord' do
       end
 
       context "for a datetime column" do
-        with_config(:default_timezone, 'Australia/Melbourne')
 
         it 'should parse a string value' do
           expect(Timeliness::Parser).to receive(:parse)
