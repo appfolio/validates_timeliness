@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "validates_timeliness/version"
 
 Gem::Specification.new do |s|
-  s.name        = "jc-validates_timeliness"
+  s.name        = "sp-validates_timeliness"
   s.version     = ValidatesTimeliness::VERSION
   s.authors     = ["Adam Meehan", "John Carney"]
   s.summary     = %q{Date and time validation plugin for Rails which allows custom formats}
