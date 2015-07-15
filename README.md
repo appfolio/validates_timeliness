@@ -11,6 +11,9 @@ ActiveModel.
 This is a Rails 4-compatible fork of the
 [original validates_timeliness gem][original] by [Adam Meehan][adzap].
 
+This is a Rails 4.2-compatible fork of the
+[original validates_timeliness gem][original] by [John Carney][johncarney].
+
 ## Features
 
 * Adds validation for dates, times and datetimes to ActiveModel
