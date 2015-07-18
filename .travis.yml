@@ -1,18 +1,15 @@
 language: ruby
 cache: bundler
 
-services: mongodb
-
 rvm:
-  - 1.9.3
   - 2.0.0
+  - 2.1.5
+  - 2.2.2
 
+gemfile:
+  - gemfiles/rails_4_0.gemfile
+  - gemfiles/rails_4_1.gemfile
+  - gemfiles/rails_4_2.gemfile
 
 script: 'bundle exec rake'
 
-notifications:
-  email:
-    recipients:
-      - john+timeliness@carney.id.au
-    on_failure: change
-    on_success: never

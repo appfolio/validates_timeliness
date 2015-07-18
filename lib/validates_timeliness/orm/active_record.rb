@@ -15,9 +15,17 @@ module ValidatesTimeliness
         end
 
         def timeliness_column_for_attribute(attr_name)
-          columns_hash.fetch(attr_name.to_s) do |attr_name|
-            validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
-            ::ActiveRecord::ConnectionAdapters::Column.new(attr_name, nil, validation_type.to_s)
+          if ::ActiveRecord.version < ::Gem::Version.new('4.2')
+            columns_hash.fetch(attr_name.to_s) do |attr_name|
+              validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
+              ::ActiveRecord::ConnectionAdapters::Column.new(attr_name, nil, validation_type.to_s)
+            end
+          else
+            columns_hash.fetch(attr_name.to_s) do |attr_name|
+              validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
+              connection = ::ActiveRecord::Base.connection
+              connection.new_column(attr_name, nil, connection.lookup_cast_type(validation_type.to_s), validation_type.to_s)
+            end
           end
         end
 
@@ -44,10 +52,43 @@ module ValidatesTimeliness
       end
 
     end
+    
+    module ActiveRecordLessThan42
+      module ClassMethods
+        def allocate
+          define_attribute_methods
+          super
+        end
+      end
+      
+      private
+      
+      def init_internals
+        self.class.define_attribute_methods
+        super
+      end
+    end
+    
   end
 end
 
 class ActiveRecord::Base
   include ValidatesTimeliness::AttributeMethods
   include ValidatesTimeliness::ORM::ActiveRecord
+  
+  if ActiveRecord.version < Gem::Version.new('4.2')
+    # Rails 4.0 / 4.1 are lazy and wait until method_missing / respond_to? is called before 
+    # calling define_attribute_methods. This is now quite complex and no longer works with 
+    # validates timeliness when the first attribute access for a AR model is to a 
+    # validates_timeliness attribute. 
+    #
+    # In Rails 4.2, this has changes to be less lazy and probably more robust. These patches 
+    # match Rails 4.2.
+    
+    prepend ValidatesTimeliness::ORM::ActiveRecordLessThan42
+  
+    class << self
+      prepend ValidatesTimeliness::ORM::ActiveRecordLessThan42::ClassMethods
+    end
+  end
 end
