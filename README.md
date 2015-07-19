@@ -5,14 +5,9 @@
 
 ## Description
 
-Complete validation of dates, times and datetimes for Rails 3.x and
-ActiveModel.
+Complete validation of dates, times and datetimes for Rails 4.x.
 
-This is a Rails 4-compatible fork of the
-[original validates_timeliness gem][original] by [Adam Meehan][adzap].
-
-This is a Rails 4.2-compatible fork of the
-[original validates_timeliness gem][original] by [John Carney][johncarney].
+This is a fork of [original validates_timeliness gem][original] by [Adam Meehan][adzap] with patches from [John Carney](https://github.com/johncarney/validates_timeliness) and [StatProSA](https://github.com/StatProSA/sp-validates_timeliness). 
 
 ## Features
 
@@ -22,14 +17,13 @@ This is a Rails 4.2-compatible fork of the
   ORM/ODM support)
 * Uses extensible date/time parser (Using
   [timeliness gem][timeliness]. See Plugin Parser)
-* Adds extensions to fix Rails date/time select issues (See Extensions)
 * Supports I18n for the error messages
-* Supports all the Rubies (that any sane person would be using in production).
+* Supports Ruby 2.0+
 
 ## Installation
 
     # in Gemfile
-    gem 'jc-validates_timeliness'
+    gem 'ae-validates_timeliness'
 
     # Run bundler
     $ bundle install
@@ -302,22 +296,22 @@ To see the generous people who have contributed code, take a look at the
 
 ## Maintainers
 
-* [John Carney][jc]
+* [AppFolio][appfolio]
 
 ## License
 
 Copyright (c) 2008 Adam Meehan, released under the MIT license
 
-[jc]:             http://github.com/johncarney
+[appfolio]:       http://github.com/appfolio
 [adzap]:          http://github.com/adzap
 [timeliness]:     http://github.com/adzap/timeliness
 [orm-support]:    http://github.com/adzap/validates_timeliness/wiki/ORM-Support
 [plugin-parser]:  http://github.com/adzap/validates_timeliness/wiki/Plugin-Parser
 [original]:       http://github.com/adzap/validates_timeliness
-[contributors]:   http://github.com/johncarney/validates_timeliness/contributors
-[gem-badge]:      https://badge.fury.io/rb/jc-validates_timeliness.svg
-[gem]:            http://badge.fury.io/rb/jc-validates_timeliness
-[build-badge]:    https://travis-ci.org/johncarney/validates_timeliness.svg?branch=master
-[build]:          https://travis-ci.org/johncarney/validates_timeliness
-[coverage-badge]: https://coveralls.io/repos/johncarney/validates_timeliness/badge.png?branch=master
-[coverage]:       https://coveralls.io/r/johncarney/validates_timeliness?branch=master
+[contributors]:   http://github.com/appfolio/validates_timeliness/contributors
+[gem-badge]:      https://badge.fury.io/rb/ae-validates_timeliness.svg
+[gem]:            http://badge.fury.io/rb/ae-validates_timeliness
+[build-badge]:    https://travis-ci.org/appfolio/validates_timeliness.svg?branch=appfolio
+[build]:          https://travis-ci.org/appfolio/validates_timeliness?branch=appfolio
+[coverage-badge]: https://coveralls.io/repos/appfolio/validates_timeliness/badge.png?branch=appfolio
+[coverage]:       https://coveralls.io/r/appfolio/validates_timeliness?branch=appfolio

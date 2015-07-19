@@ -3,19 +3,19 @@ $:.push File.expand_path("../lib", __FILE__)
 require "validates_timeliness/version"
 
 Gem::Specification.new do |s|
-  s.name        = "sp-validates_timeliness"
+  s.name        = "ae-validates_timeliness"
   s.version     = ValidatesTimeliness::VERSION
-  s.authors     = ["Adam Meehan", "John Carney"]
+  s.authors     = ["Paul Kmiec"]
   s.summary     = %q{Date and time validation plugin for Rails which allows custom formats}
   s.description = %q{Adds validation methods to ActiveModel for validating dates and times. Works with multiple ORMS.}
-  s.email       = %q{adam.meehan@gmail.com}
-  s.homepage    = %q{http://github.com/johncarney/validates_timeliness}
+  s.email       = %q{paul.kmiec@appfolio.com}
+  s.homepage    = %q{http://github.com/appfolio/validates_timeliness}
 
-  s.require_paths    = ["lib"]
-  s.files            = `git ls-files`.split("\n") - %w{ .gitignore .rspec Gemfile Gemfile.lock autotest/discover.rb Appraisals .travis.yml .coveralls.yml } - Dir['gemfiles/*']
-  s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.extra_rdoc_files = ["CHANGELOG.rdoc", "LICENSE"]
+  s.files         = Dir['**/*'].reject{ |f| f[%r{^pkg/}] || f[%r{^spec/}] }
+  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.require_paths = ["lib"]
 
+  s.add_runtime_dependency(%q<rails>, ["~> 4.0"])
   s.add_runtime_dependency(%q<timeliness>, ["~> 0.3.7"])
 
   s.add_development_dependency "coveralls"
