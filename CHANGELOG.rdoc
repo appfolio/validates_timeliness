@@ -1,3 +1,10 @@
+= 4.0.0 [2015-07-19]
+* Better compatibility with Rails 4.x (and drop support < 4.0)
+* Support Ruby 2.0+
+* Drop Mongoid support (PRs welcome to restore this)
+* Drop Extensions (PRs welcome to restore this)
+* Distribute gem as ae-validate_timeliness
+
 = 3.0.14 [2012-08-23]
 * Fix for using validates :timeliness => {} form to correctly add attributes to timeliness validated attributes.
 

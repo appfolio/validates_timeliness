@@ -7,7 +7,10 @@
 
 Complete validation of dates, times and datetimes for Rails 4.x.
 
-This is a fork of [original validates_timeliness gem][original] by [Adam Meehan][adzap] with patches from [John Carney](https://github.com/johncarney/validates_timeliness) and [StatProSA](https://github.com/StatProSA/sp-validates_timeliness). 
+This is a fork of [original validates_timeliness gem][original] by [Adam Meehan][adzap] 
+with patches from [John Carney](https://github.com/johncarney/validates_timeliness) and [StatProSA](https://github.com/StatProSA/sp-validates_timeliness). I've added 
+additional compatibility with various Rails 4.x version as well as STI and performance
+fixes.
 
 ## Features
 
@@ -121,6 +124,10 @@ validates_date means all values are compared as dates.
 
 ### ORM/ODM Support
 
+**Note** Mongoid does not work in ae-validates\_timeliness. The code / 
+spec are still there and I'm happy to accept PRs that restore this 
+functionality.
+
 The plugin adds date/time validation to ActiveModel for any ORM/ODM that
 supports the ActiveModel validations component. However, there is an issue
 with most ORM/ODMs which does not allow 100% date/time validation by default.
@@ -131,12 +138,12 @@ was invalid. To fix this, we need to cache the original invalid value to know
 that the attribute is not just nil.
 
 Each ORM/ODM requires a specific shim to fix it. The plugin includes a shim
-for ActiveRecord and Mongoid. You can activate them like so
+for ActiveRecord. You can activate them like so
 
     ValidatesTimeliness.setup do |config|
 
-      # Extend ORM/ODMs for full support (:active_record, :mongoid).
-      config.extend_orms = [ :mongoid ]
+      # Extend ORM/ODMs for full support (:active_record).
+      config.extend_orms = [ :active_record ]
 
     end
 
@@ -262,6 +269,10 @@ To turn them on/off:
     config.ignore_restriction_errors = true
 
 ## Extensions
+
+**NOTE** These extensions do not work in ae-validates\_timeliness. The code / 
+spec are still there and I'm happy to accept PRs that restore this 
+functionality.
 
 ### Strict Parsing for Select Helpers
 
