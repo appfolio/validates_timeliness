@@ -301,6 +301,7 @@ To see the generous people who have contributed code, take a look at the
 ## License
 
 Copyright (c) 2008 Adam Meehan, released under the MIT license
+Copyright (c) 2015 AppFolio, released under the MIT license
 
 [appfolio]:       http://github.com/appfolio
 [adzap]:          http://github.com/adzap
