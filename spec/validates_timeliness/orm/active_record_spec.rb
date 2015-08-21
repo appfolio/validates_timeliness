@@ -52,21 +52,21 @@ describe ValidatesTimeliness, 'ActiveRecord' do
       record.birth_date = '2012-01-01'
 
       record.valid?
-      record.errors[:birth_date].should be_empty
+      expect(record.errors[:birth_date]).to be_empty
     end
 
     it "should validate a invalid value string" do
       record.birth_date = 'not a date'
 
       record.valid?
-      record.errors[:birth_date].should_not be_empty
+      expect(record.errors[:birth_date]).not_to be_empty
     end
 
     it "should validate a nil value" do
       record.birth_date = nil
 
       record.valid?
-      record.errors[:birth_date].should be_empty
+      expect(record.errors[:birth_date]).to be_empty
     end
   end
 

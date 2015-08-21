@@ -157,12 +157,12 @@ describe ValidatesTimeliness::Conversion do
       expect(evaluate_option_value(:birth_time, person)).to eq(value)
     end
 
-    it 'should return Time value is default zone from string time value' do
+    it 'should return Time value in default zone from string time value' do
       value = '2010-01-01 12:00:00'
       expect(evaluate_option_value(value, person)).to eq(Time.utc(2010,1,1,12,0,0))
     end
 
-    it 'should return Time value is current zone from string time value if timezone aware' do
+    it 'should return Time value in current zone from string time value if timezone aware' do
       @timezone_aware = true
       value = '2010-01-01 12:00:00'
       expect(evaluate_option_value(value, person)).to eq(Time.zone.local(2010,1,1,12,0,0))
@@ -174,9 +174,9 @@ describe ValidatesTimeliness::Conversion do
     end
 
     it 'should return Time value for attribute method symbol which returns string time value' do
-      value = '2010-01-01 12:00:00'
+      value = '2010-01-01 12:00:00 UTC'
       person.birth_time = value
-      expect(evaluate_option_value(:birth_time, person)).to eq(Time.local(2010,1,1,12,0,0))
+      expect(evaluate_option_value(:birth_time, person)).to eq(Time.utc(2010,1,1,12,0,0))
     end
 
     context "restriction shorthand" do
