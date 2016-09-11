@@ -15,17 +15,18 @@ module ValidatesTimeliness
         end
 
         def timeliness_column_for_attribute(attr_name)
-          if ::ActiveRecord.version < ::Gem::Version.new('4.2')
-            columns_hash.fetch(attr_name.to_s) do |attr_name|
-              validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
+          columns_hash.fetch(attr_name.to_s) do |attr_name|
+            validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
+
+            if ::ActiveRecord.version < ::Gem::Version.new('4.2')
               ::ActiveRecord::ConnectionAdapters::Column.new(attr_name, nil, validation_type.to_s)
-            end
-          else
-            columns_hash.fetch(attr_name.to_s) do |attr_name|
-              validation_type = _validators[attr_name.to_sym].find {|v| v.kind == :timeliness }.type
+            else
               connection = ::ActiveRecord::Base.connection
-              arguments = [attr_name, nil, connection.lookup_cast_type(validation_type.to_s), validation_type.to_s]
-              arguments.push(table_name) if ::ActiveRecord.version > ::Gem::Version.new('4.3')
+              arguments = if ::ActiveRecord.version > ::Gem::Version.new('4.3')
+                  [attr_name, nil, connection.send(:fetch_type_metadata, validation_type.to_s), validation_type.to_s, table_name]
+                else
+                  [attr_name, nil, connection.lookup_cast_type(validation_type.to_s), validation_type.to_s]
+                end
               connection.new_column(*arguments)
             end
           end
