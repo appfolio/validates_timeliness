@@ -1,6 +1,6 @@
-module ModelHelpers 
+module ModelHelpers
 
-  # Some test helpers from Rails source 
+  # Some test helpers from Rails source
   def invalid!(attr_name, values, error = nil)
     with_each_person_value(attr_name, values) do |record, value|
       expect(record).to be_invalid
