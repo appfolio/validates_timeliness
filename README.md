@@ -5,10 +5,10 @@
 
 ## Description
 
-Complete validation of dates, times and datetimes for Rails 4.x.
+Complete validation of dates, times and datetimes for Rails 4.x and Rails 5.0.
 
-This is a fork of [original validates_timeliness gem][original] by [Adam Meehan][adzap] 
-with patches from [John Carney](https://github.com/johncarney/validates_timeliness) and [StatProSA](https://github.com/StatProSA/sp-validates_timeliness). I've added 
+This is a fork of [original validates_timeliness gem][original] by [Adam Meehan][adzap]
+with patches from [John Carney](https://github.com/johncarney/validates_timeliness) and [StatProSA](https://github.com/StatProSA/sp-validates_timeliness). I've added
 additional compatibility with various Rails 4.x version as well as STI and performance
 fixes.
 
@@ -124,8 +124,8 @@ validates_date means all values are compared as dates.
 
 ### ORM/ODM Support
 
-**Note** Mongoid does not work in ae-validates\_timeliness. The code / 
-spec are still there and I'm happy to accept PRs that restore this 
+**Note** Mongoid does not work in ae-validates\_timeliness. The code /
+spec are still there and I'm happy to accept PRs that restore this
 functionality.
 
 The plugin adds date/time validation to ActiveModel for any ORM/ODM that
@@ -270,8 +270,8 @@ To turn them on/off:
 
 ## Extensions
 
-**NOTE** These extensions do not work in ae-validates\_timeliness. The code / 
-spec are still there and I'm happy to accept PRs that restore this 
+**NOTE** These extensions do not work in ae-validates\_timeliness. The code /
+spec are still there and I'm happy to accept PRs that restore this
 functionality.
 
 ### Strict Parsing for Select Helpers
