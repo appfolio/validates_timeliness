@@ -45,28 +45,28 @@ describe ValidatesTimeliness, 'ActiveRecord' do
 
     class Janitor < Employee
     end
-    
+
     let(:record) { Janitor.new }
 
     it "should validate a valid value string" do
       record.birth_date = '2012-01-01'
 
       record.valid?
-      record.errors[:birth_date].should be_empty
+      expect(record.errors[:birth_date]).to be_empty
     end
 
     it "should validate a invalid value string" do
       record.birth_date = 'not a date'
 
       record.valid?
-      record.errors[:birth_date].should_not be_empty
+      expect(record.errors[:birth_date]).not_to be_empty
     end
 
     it "should validate a nil value" do
       record.birth_date = nil
 
       record.valid?
-      record.errors[:birth_date].should be_empty
+      expect(record.errors[:birth_date]).to be_empty
     end
   end
 
@@ -270,10 +270,10 @@ describe ValidatesTimeliness, 'ActiveRecord' do
   context "define_attribute_methods" do
     it "generates methods once" do
       original = Employee.instance_method(:birth_time=)
-      Employee.define_attribute_methods      
+      Employee.define_attribute_methods
       expect(Employee.instance_method(:birth_time=)).to eq original
     end
-    
+
     it "returns a falsy value if the attribute methods have already been generated" do
       expect(Employee.define_attribute_methods).to be_falsey
     end
