@@ -3,7 +3,6 @@ cache: bundler
 sudo: false
 
 rvm:
-  - 2.0.0
   - 2.1.5
   - 2.2.2
   - 2.3.0
@@ -17,8 +16,6 @@ gemfile:
 matrix:
   fast_finish: true
   exclude:
-  - rvm: 2.0.0
-    gemfile: gemfiles/rails_5_0.gemfile
   - rvm: 2.1.5
     gemfile: gemfiles/rails_5_0.gemfile
 
