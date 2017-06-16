@@ -48,7 +48,12 @@ module TestModel
   end
 
   def method_missing(method_id, *args, &block)
-    if match_attribute_method?(method_id.to_s)
+    attribute_matches = if ActiveRecord.version > Gem::Version.new('4.3')
+        matched_attribute_method(method_id.to_s)
+      else
+        match_attribute_method?(method_id.to_s)
+      end
+    if attribute_matches
       self.class.define_attribute_methods self.class.model_attributes.keys
       send(method_id, *args, &block)
     else
@@ -56,4 +61,3 @@ module TestModel
     end
   end
 end
-
