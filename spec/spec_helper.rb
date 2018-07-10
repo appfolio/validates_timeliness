@@ -69,6 +69,9 @@ I18n.enforce_available_locales = false
 
 ActiveRecord::Base.default_timezone = :utc
 ActiveRecord::Base.time_zone_aware_attributes = true
+if ActiveRecord.version >= Gem::Version.new('5')
+  ActiveRecord::Base.time_zone_aware_types = [:datetime]
+end
 ActiveRecord::Base.establish_connection({:adapter => 'sqlite3', :database => ':memory:'})
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define(:version => 1) do
