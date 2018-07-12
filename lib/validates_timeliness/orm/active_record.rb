@@ -22,12 +22,20 @@ module ValidatesTimeliness
               ::ActiveRecord::ConnectionAdapters::Column.new(attr_name, nil, validation_type.to_s)
             else
               connection = ::ActiveRecord::Base.connection
-              arguments = if ::ActiveRecord.version > ::Gem::Version.new('4.3')
-                  [attr_name, nil, connection.send(:fetch_type_metadata, validation_type.to_s), validation_type.to_s, table_name]
+              sql_type = validation_type.to_s
+              cast_type = begin
+                if ::ActiveRecord.version < ::Gem::Version.new('5')
+                  connection.send(:lookup_cast_type, sql_type)
                 else
-                  [attr_name, nil, connection.lookup_cast_type(validation_type.to_s), validation_type.to_s]
+                  connection.send(:fetch_type_metadata, sql_type)
                 end
-              connection.new_column(*arguments)
+              end
+
+              if ::ActiveRecord.version < ::Gem::Version.new('5.1')
+                connection.send(:new_column, attr_name, nil, cast_type, sql_type, table_name)
+              else
+                connection.send(:new_column_from_field, table_name, { 'name' => attr_name, 'type' => sql_type })
+              end
             end
           end
         end
